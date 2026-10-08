@@ -4,6 +4,21 @@ Qué cambia en cada versión de Nea y qué hacer al actualizar. Cada tag
 `vX.Y.Z` publica la imagen `ghcr.io/kevinrivm/nea-agent:X.Y.Z` (README,
 «Instalar»).
 
+## Sin publicar
+
+### Nuevo
+
+- **Webhook con el secreto en la ruta: `/webhook/<VERIFY_TOKEN>`.** Para
+  instalar Nea en un servidor que no debe guardar el App Secret de la app de
+  Meta (un Tech Provider que despliega para sus clientes: con ese secreto se
+  administran los webhooks de TODA la app). Funciona como
+  `/api/webhooks/wa/<token>` del CRM: ruta equivocada → 404, y la firma se
+  verifica solo si `META_APP_SECRET` está puesta. Exige un `VERIFY_TOKEN` de
+  32 caracteres o más; con uno más corto esa entrada no abre. `/webhook` no
+  cambia: sigue exigiendo la firma.
+- El `VERIFY_TOKEN` ya no queda en el log de accesos (ni en la ruta ni en el
+  `hub.verify_token` del handshake).
+
 ## 1.0.0 — 2026-09-30
 
 Primera versión con número y primera con imagen publicada. Hasta aquí Nea se
